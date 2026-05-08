@@ -1,8 +1,7 @@
 import { Type } from '@sinclair/typebox'
-import { eq } from 'drizzle-orm'
 import { createInsertSchema, createSelectSchema } from 'drizzle-typebox'
 import { Elysia, status, t } from 'elysia'
-import { db } from '../db'
+import { createMenuSql, deleteMenuSql, getMenuByIdSql, listMenuSql, replaceMenuSql } from '../db/menu.sql'
 import { menu } from '../db/schema'
 
 const menuRow = createSelectSchema(menu)
@@ -13,7 +12,7 @@ const menuCreateBody = Type.Omit(menuInsert, ['id'])
 export const menuRoutes = new Elysia({ prefix: '/menu' })
   .get(
     '/',
-    async () => db.select().from(menu),
+    async () => listMenuSql(),
     {
       response: t.Array(menuRow),
       detail: { summary: 'Listar ítems del menú', tags: ['menu'] },
@@ -22,8 +21,7 @@ export const menuRoutes = new Elysia({ prefix: '/menu' })
   .get(
     '/:id',
     async ({ params }) => {
-      const rows = await db.select().from(menu).where(eq(menu.id, params.id)).limit(1)
-      const row = rows[0]
+      const row = await getMenuByIdSql(params.id)
       if (!row) throw status(404, { error: 'Not found' })
       return row
     },
@@ -36,11 +34,7 @@ export const menuRoutes = new Elysia({ prefix: '/menu' })
   .post(
     '/',
     async ({ body }) => {
-      const [row] = await db
-        .insert(menu)
-        .values({ name: body.name, description: body.description ?? null })
-        .returning()
-      return row
+      return createMenuSql({ name: body.name, description: body.description ?? null })
     },
     {
       body: menuCreateBody,
@@ -51,11 +45,10 @@ export const menuRoutes = new Elysia({ prefix: '/menu' })
   .put(
     '/:id',
     async ({ params, body }) => {
-      const [row] = await db
-        .update(menu)
-        .set({ name: body.name, description: body.description ?? null })
-        .where(eq(menu.id, params.id))
-        .returning()
+      const row = await replaceMenuSql(params.id, {
+        name: body.name,
+        description: body.description ?? null,
+      })
       if (!row) throw status(404, { error: 'Not found' })
       return row
     },
@@ -69,7 +62,7 @@ export const menuRoutes = new Elysia({ prefix: '/menu' })
   .delete(
     '/:id',
     async ({ params }) => {
-      const [row] = await db.delete(menu).where(eq(menu.id, params.id)).returning()
+      const row = await deleteMenuSql(params.id)
       if (!row) throw status(404, { error: 'Not found' })
       return row
     },
