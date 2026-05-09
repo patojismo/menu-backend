@@ -11,7 +11,7 @@ const menuCreateBody = Type.Omit(menuInsert, ['id'])
 
 export const menuRoutes = new Elysia({ prefix: '/menu' })
   .get(
-    '/',
+    '',
     async () => listMenuSql(),
     {
       response: t.Array(menuRow),
@@ -32,7 +32,7 @@ export const menuRoutes = new Elysia({ prefix: '/menu' })
     },
   )
   .post(
-    '/',
+    '',
     async ({ body }) => {
       return createMenuSql({ name: body.name, description: body.description ?? null })
     },
