@@ -1,20 +1,13 @@
-import { Type } from '@sinclair/typebox'
-import { createInsertSchema, createSelectSchema } from 'drizzle-typebox'
 import { Elysia, status, t } from 'elysia'
+import { menuCreateBodySchema, menuIdParamsSchema, menuRowSchema } from '../contracts/menu'
 import { createMenuSql, deleteMenuSql, getMenuByIdSql, listMenuSql, replaceMenuSql } from '../db/menu.sql'
-import { menu } from '../db/schema'
-
-const menuRow = createSelectSchema(menu)
-const menuInsert = createInsertSchema(menu)
-/** Body sin `id` (PK autogenerada). */
-const menuCreateBody = Type.Omit(menuInsert, ['id'])
 
 export const menuRoutes = new Elysia({ prefix: '/menu' })
   .get(
     '',
     async () => listMenuSql(),
     {
-      response: t.Array(menuRow),
+      response: t.Array(menuRowSchema),
       detail: { summary: 'Listar ítems del menú', tags: ['menu'] },
     },
   )
@@ -26,8 +19,8 @@ export const menuRoutes = new Elysia({ prefix: '/menu' })
       return row
     },
     {
-      params: t.Object({ id: t.Numeric() }),
-      response: menuRow,
+      params: menuIdParamsSchema,
+      response: menuRowSchema,
       detail: { summary: 'Obtener ítem por id', tags: ['menu'] },
     },
   )
@@ -37,8 +30,8 @@ export const menuRoutes = new Elysia({ prefix: '/menu' })
       return createMenuSql({ name: body.name, description: body.description ?? null })
     },
     {
-      body: menuCreateBody,
-      response: menuRow,
+      body: menuCreateBodySchema,
+      response: menuRowSchema,
       detail: { summary: 'Crear ítem', tags: ['menu'] },
     },
   )
@@ -53,9 +46,9 @@ export const menuRoutes = new Elysia({ prefix: '/menu' })
       return row
     },
     {
-      params: t.Object({ id: t.Numeric() }),
-      body: menuCreateBody,
-      response: menuRow,
+      params: menuIdParamsSchema,
+      body: menuCreateBodySchema,
+      response: menuRowSchema,
       detail: { summary: 'Reemplazar ítem', tags: ['menu'] },
     },
   )
@@ -67,8 +60,8 @@ export const menuRoutes = new Elysia({ prefix: '/menu' })
       return row
     },
     {
-      params: t.Object({ id: t.Numeric() }),
-      response: menuRow,
+      params: menuIdParamsSchema,
+      response: menuRowSchema,
       detail: { summary: 'Eliminar ítem', tags: ['menu'] },
     },
   )
