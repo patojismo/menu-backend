@@ -1,6 +1,6 @@
 import { Elysia, status, t } from 'elysia'
 import { menuCreateBodySchema, menuIdParamsSchema, menuRowSchema } from '../contracts/menu'
-import { createMenuSql, deleteMenuSql, getMenuByIdSql, listMenuSql, replaceMenuSql } from '../db/menu.sql'
+import { createMenuSql, deleteMenuSql, getMenuByIdSql, listMenuSql, updateMenuSql } from '../db/menu.sql'
 
 export const menuRoutes = new Elysia({ prefix: '/menu' })
   .get(
@@ -38,7 +38,7 @@ export const menuRoutes = new Elysia({ prefix: '/menu' })
   .put(
     '/:id',
     async ({ params, body }) => {
-      const row = await replaceMenuSql(params.id, {
+      const row = await updateMenuSql(params.id, {
         name: body.name,
         description: body.description ?? null,
       })
@@ -49,7 +49,7 @@ export const menuRoutes = new Elysia({ prefix: '/menu' })
       params: menuIdParamsSchema,
       body: menuCreateBodySchema,
       response: menuRowSchema,
-      detail: { summary: 'Reemplazar ítem', tags: ['menu'] },
+      detail: { summary: 'Actualizar ítem', tags: ['menu'] },
     },
   )
   .delete(

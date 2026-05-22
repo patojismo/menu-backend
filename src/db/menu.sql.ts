@@ -19,7 +19,7 @@ export const createMenuSql = async (payload: MenuPayload) => {
   return row
 }
 
-export const replaceMenuSql = async (id: number, payload: MenuPayload) => {
+export const updateMenuSql = async (id: number, payload: MenuPayload) => {
   const [row] = await db.update(menu).set(payload).where(eq(menu.id, id)).returning()
   return row
 }

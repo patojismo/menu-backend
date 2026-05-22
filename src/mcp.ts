@@ -1,11 +1,11 @@
 import { mcp } from 'elysia-mcp'
-import { menuCreateInputSchema, menuIdInputSchema, menuReplaceInputSchema } from './contracts/menu'
+import { menuCreateInputSchema, menuIdInputSchema, menuUpdateInputSchema } from './contracts/menu'
 import {
   createMenuSql,
   deleteMenuSql,
   getMenuByIdSql,
   listMenuSql,
-  replaceMenuSql,
+  updateMenuSql,
 } from './db/menu.sql'
 
 const toMcpText = (data: unknown) => ({
@@ -67,13 +67,13 @@ export const mcpPlugin = mcp({
     )
 
     server.registerTool(
-      'replace_menu',
+      'update_menu',
       {
-        description: 'Replace an existing menu item by id',
-        inputSchema: menuReplaceInputSchema,
+        description: 'Update an existing menu item by id',
+        inputSchema: menuUpdateInputSchema,
       },
       async ({ id, name, description }) => {
-        const row = await replaceMenuSql(id, {
+        const row = await updateMenuSql(id, {
           name,
           description: description ?? null,
         })

@@ -23,7 +23,7 @@ export const menuIdInputSchema = {
   id: z.number().int().positive().describe(menuIdDescription),
 }
 
-export const menuReplaceInputSchema = {
+export const menuUpdateInputSchema = {
   ...menuIdInputSchema,
   ...menuCreateInputSchema,
 }
