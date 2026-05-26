@@ -1,6 +1,6 @@
+import { createMenuSql, deleteMenuSql, getMenuByIdSql, listMenuSql, updateMenuSql } from '@menu/database/menu.sql'
 import { Elysia, status, t } from 'elysia'
 import { menuCreateBodySchema, menuIdParamsSchema, menuRowSchema } from '../contracts/menu'
-import { createMenuSql, deleteMenuSql, getMenuByIdSql, listMenuSql, updateMenuSql } from '../db/menu.sql'
 
 export const menuRoutes = new Elysia({ prefix: '/menu' })
   .get(

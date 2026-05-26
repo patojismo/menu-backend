@@ -1,12 +1,6 @@
+import { createMenuSql, deleteMenuSql, getMenuByIdSql, listMenuSql, updateMenuSql } from '@menu/database/menu.sql'
 import { mcp } from 'elysia-mcp'
 import { menuCreateInputSchema, menuIdInputSchema, menuUpdateInputSchema } from './contracts/menu'
-import {
-  createMenuSql,
-  deleteMenuSql,
-  getMenuByIdSql,
-  listMenuSql,
-  updateMenuSql,
-} from './db/menu.sql'
 
 const toMcpText = (data: unknown) => ({
   content: [{ type: 'text' as const, text: JSON.stringify(data, null, 2) }],

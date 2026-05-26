@@ -6,12 +6,19 @@
     "strict": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "types": [
+      "bun"
+    ],
     "esModuleInterop": true,
     "isolatedModules": true,
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
-    "lib": ["ESNext"]
+    "lib": [
+      "ESNext"
+    ]
   },
-  "include": ["api/src/**/*.ts", "database/src/**/*.ts", "database/drizzle.config.ts"]
+  "include": [
+    "src/**/*.ts",
+    "drizzle.config.ts"
+  ]
 }

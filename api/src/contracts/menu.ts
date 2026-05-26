@@ -1,8 +1,8 @@
+import { menu } from '@menu/database/schema'
 import { Type } from '@sinclair/typebox'
 import { createInsertSchema, createSelectSchema } from 'drizzle-typebox'
 import { t } from 'elysia'
 import { z } from 'zod'
-import { menu } from '../db/schema'
 
 const menuInsertSchema = createInsertSchema(menu)
 

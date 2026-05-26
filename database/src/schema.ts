@@ -1,4 +1,4 @@
-import { pgEnum, pgTable, serial, text, integer, timestamp } from 'drizzle-orm/pg-core'
+import { integer, pgEnum, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core'
 
 export const inventoryMovementType = pgEnum('inventory_movement_type', [
   'restocked',
