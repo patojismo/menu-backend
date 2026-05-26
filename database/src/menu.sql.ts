@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm'
 import { db } from './index'
-import { menu } from './schema'
+import { menu } from './schemas'
 
 type MenuPayload = {
   name: string

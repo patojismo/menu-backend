@@ -4,7 +4,8 @@
   "private": true,
   "exports": {
     ".": "./src/index.ts",
-    "./schema": "./src/schema.ts",
+    "./schema": "./src/schemas/index.ts",
+    "./schemas": "./src/schemas/index.ts",
     "./menu.sql": "./src/menu.sql.ts"
   },
   "scripts": {
