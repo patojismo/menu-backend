@@ -1,10 +1,11 @@
 import { cors } from '@elysiajs/cors'
 import { swagger } from '@elysiajs/swagger'
 import { Elysia } from 'elysia'
+import { config } from './config'
 import { mcpPlugin } from './mcp'
 import { menuRoutes } from './routes/menu'
 
-const port = Number(process.env.PORT) || 3000
+const { port } = config
 const mcpAllowedMethods = 'GET, POST, DELETE, OPTIONS'
 const mcpAllowedHeaders = 'Content-Type, Accept, Authorization, mcp-session-id, mcp-protocol-version'
 const mcpExposedHeaders = 'mcp-session-id'
