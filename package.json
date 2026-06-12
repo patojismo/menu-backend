@@ -14,5 +14,8 @@
     "db:studio": "bun run --filter @menu/database db:studio",
     "typecheck": "bun run --filter '*' typecheck",
     "mcp:test": "bun run --filter @menu/api mcp:test"
+  },
+  "dependencies": {
+    "ws": "^8.21.0"
   }
 }

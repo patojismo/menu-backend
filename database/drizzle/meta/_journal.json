@@ -15,6 +15,13 @@
       "when": 1779480548579,
       "tag": "0001_melodic_captain_britain",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1781294851400,
+      "tag": "0002_peaceful_adam_warlock",
+      "breakpoints": true
     }
   ]
 }
